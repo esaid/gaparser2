@@ -26,14 +26,25 @@ def list_find_(string_found):
 
 
 code = read_file(file_ga)
-print(code)
+print(f"code:  {code}")
 list_code = list(map(str.strip, code.splitlines()))
-print(list_code)
+print(f"list_code:  {list_code}")
 list_bibliotheque = list_find_('require')
-print(list_bibliotheque)
+print(f"list_bibliotheque {list_bibliotheque}")
 list_code_bibliotheque = []
 for ll in list_bibliotheque:
     code_bibliotheque = read_file(directoryBibliotheqque + ll)
-    print(code_bibliotheque)
+    print(f"code_bibliotheque {ll}  {code_bibliotheque}")
     list_code_bibliotheque.append(re.split(r":", code_bibliotheque))
-    print(list_code_bibliotheque)
+
+print(f"list_code_bibliotheque : {list_code_bibliotheque}")
+
+
+code_to_add=[]
+for lc in list_code:
+    print(lc)
+    for lcb in list_code_bibliotheque:
+        print(lcb)
+        if lc in lcb:
+            code_to_add.append(": " + lcb)
+print(f"code a ajouter : {code_to_add}")
