@@ -1,7 +1,9 @@
 import pyutil
 from pyutil import inany
+import re
 
 directoryExamples = '/examples'
+directoryBibliotheqque = 'Libraries/'
 comserial = "com9"  # le port serie
 compilega144 = True  # permet de voir sous forme json le resultat de la compilation
 programga144 = False  # programmation du ga144
@@ -18,8 +20,8 @@ def read_file(File_input):
 def list_find_(string_found):
     list_require = []
     for i in list_code:
-        if inany(i, 'require', True):
-            list_require.append(i)
+        if inany(i, string_found, True):
+            list_require.append(re.sub(string_found, '', i).strip() + '.ga')
     return list_require
 
 
@@ -27,5 +29,11 @@ code = read_file(file_ga)
 print(code)
 list_code = list(map(str.strip, code.splitlines()))
 print(list_code)
-
-print(list_find_('require'))
+list_bibliotheque = list_find_('require')
+print(list_bibliotheque)
+list_code_bibliotheque = []
+for ll in list_bibliotheque:
+    code_bibliotheque = read_file(directoryBibliotheqque + ll)
+    print(code_bibliotheque)
+    list_code_bibliotheque.append(re.split(r":", code_bibliotheque))
+    print(list_code_bibliotheque)
