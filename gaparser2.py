@@ -1,6 +1,6 @@
 import numpy as np
 import pyutil
-from pyutil import inany, do
+from pyutil import inany, do, fileappend, fileoverwrite, filereplace, toDict
 import re
 
 directoryExamples = '/examples'
@@ -10,6 +10,7 @@ compilega144 = True  # permet de voir sous forme json le resultat de la compilat
 programga144 = False  # programmation du ga144
 
 file_ga = "examples/ledpulse.ga"
+file_ga_ = file_ga + '_'
 
 
 # lecture fichier
@@ -68,7 +69,7 @@ print(f"code a remplacer: {code_to_replace}")
 code_remplace = []
 def find_index(code):
     for m in code_to_replace:
-        m = " " + m + ' '
+        m = " " + m
         for ind in list_code_bibliotheque:
             if inany(ind, m, True):
                 code.append(ind)
@@ -78,3 +79,21 @@ def find_index(code):
 
 find_index(code_remplace)
 print(f"code a remplacer {code_remplace}")
+
+
+
+print(type(code_to_replace))
+print(type(code_remplace))
+
+
+dict_a_remplacer = toDict(list(code_to_replace), code_remplace)
+for cle, valeur in dict_a_remplacer.items():
+        print("l'élément de clé", cle, "vaut", valeur)
+
+
+fileoverwrite(file_ga_, code)
+for s_code_to_add in code_to_add:
+    fileappend(file_ga_ , s_code_to_add )
+
+#for s_code_to_replace in code_remplace:
+    # filereplace(file_ga_ , s_code_to_add, s_code_to_replace )
