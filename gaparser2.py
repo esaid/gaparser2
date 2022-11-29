@@ -93,39 +93,20 @@ for lc in list_code:
     if lc in dict_bibliotheque:
         code_to_add.append(dict_bibliotheque[lc])
 
-    for key in dict_bibliotheque:
+    for key, value in dict_bibliotheque.items():
         if inany(lc, key, True):
-            print(key, lc)
-            code_to_replace.append(dict_bibliotheque[key])
+            code_to_replace.append(key)
+            code_to_replace.append(value)
+
 
 
 code_to_add = set(code_to_add)
 code_to_replace = set(code_to_replace)
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
+
+
 sys.exit()
-code_remplace = []
-
-
-def find_index(code):
-    for m in code_to_replace:
-        m = " " + m
-        for ind in list_code_bibliotheque:
-            if inany(ind, m, True):
-                code.append(ind)
-                break
-    return code
-
-
-find_index(code_remplace)
-print(f"code a remplacer {code_remplace}")
-
-print(type(code_to_replace))
-print(type(code_remplace))
-
-dict_a_remplacer = toDict(list(code_to_replace), code_remplace)
-for cle, valeur in dict_a_remplacer.items():
-    print("l'élément de clé", cle, "vaut", valeur)
 
 fileoverwrite(file_ga_, code)
 for s_code_to_add in code_to_add:
