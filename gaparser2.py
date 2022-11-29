@@ -20,6 +20,7 @@ def read_file(File_input):
         return f.read()
 
 
+# list bibliotheque
 def list_find_(string_found, s_extension):
     list_require = []
     for i in list_code:
@@ -28,6 +29,7 @@ def list_find_(string_found, s_extension):
     return list_require
 
 
+# decoupage definition et code
 def find_between(s, start, end):
     return ': ' + (s.split(start))[1].split(end)[0] + " ;"
 
@@ -72,19 +74,10 @@ print(f"list_code:  {list_code}")
 list_bibliotheque = list_find_('require', '.ga')
 print(f"list_bibliotheque {list_bibliotheque}")
 
-list_code_bibliotheque = []
-code_bibliotheque = ""
 
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque)
 print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
-'''
-list_mot_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
-list_mot_code_bibliotheque = list(map(lambda each: each.strip(": "), list_mot_code_bibliotheque))
-list_mot_code_bibliotheque = list(map(lambda each: each.strip("( n )"), list_mot_code_bibliotheque))
-
-print(f"list_mot_code_bibliotheque : {list_mot_code_bibliotheque}")
-'''
 code_to_add = []
 code_to_replace = []
 for lc in list_code:
@@ -94,9 +87,9 @@ for lc in list_code:
             code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
 
     for key, value in dict_bibliotheque.items():
-        if inany(lc, key, True):
+        if inany(lc, key + ' '):
             if (key not in code_to_replace) and (key not in code_to_add):
-                code_to_replace.extend([key, value.replace(key, '')])
+                code_to_replace.extend([key, str(value.replace(key, '')).replace(';', '')])
 code_to_add = code_to_add[1::2]  # odd element
 
 print(f"code a ajouter : {code_to_add}")
@@ -111,7 +104,7 @@ for s_code_to_add in code_to_add:
 for i in range(len(code_to_replace) - 1, -1, -2):
     s_code_to_found = code_to_replace[i - 1]
     s_code_to_replace = code_to_replace[i]
-    filereplace(file_ga_, ' ' + s_code_to_found , s_code_to_replace)
+    filereplace(file_ga_, ' ' + s_code_to_found, s_code_to_replace)
 
 # code source
 code = read_file(file_ga_)

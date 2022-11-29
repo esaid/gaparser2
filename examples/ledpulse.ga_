@@ -1,13 +1,16 @@
 require delay
 require maths
+require gpio
 
 \ demo Led Pulse
 
 node 500
 : ledpulse
-    0x30000 !b . . \ led on
+   
+    0x30000 !b . .   \ led on
     pause
-    0x20000 !b . . \ led off
+   
+    0x20000 !b . .   \ led off
     pause
     5ms
     ledpulse
@@ -17,5 +20,4 @@ node 500
 	5000 for 10000 
 	for next . . next ;
 : 5ms
-    5 for 999 ( n )
-	for 416 for unext next ; next ;
+    5 for 999 us next ;
