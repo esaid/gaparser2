@@ -3,6 +3,7 @@ import pyutil
 from pyutil import inany, do, fileappend, fileoverwrite, filereplace, toDict
 import re
 import sys
+
 directoryExamples = '/examples'
 directoryBibliotheqque = 'Libraries/'
 comserial = "com9"  # le port serie
@@ -26,6 +27,7 @@ def list_find_(string_found, s_extension):
             list_require.append(re.sub(string_found, '', i).strip() + s_extension)
     return list_require
 
+
 def find_between(s, start, end):
     return ': ' + (s.split(start))[1].split(end)[0] + " ;"
 
@@ -35,17 +37,28 @@ def creation_dictionnaire(code_bibliotheque_, s_fin):
     while code_bibliotheque_:
         cle_code_ = find_between(code_bibliotheque_, ': ', ' ;')
 
-        cle_code_bibliotheque , code_ = cle_code_.split("\n")[0].replace(': ',''), cle_code_
-        print(f" cle: {cle_code_bibliotheque} , code  {code_}")
+        cle_code_bibliotheque, code_ = cle_code_.split("\n")[0].replace(': ', ''), cle_code_
+        # print(f" cle: {cle_code_bibliotheque} , code  {code_}")
+        if inany(cle_code_bibliotheque, s_fin, True):
+            break
+        cle_code_bibliotheque = cle_code_bibliotheque.split(' ')[0]
         dict_code_bibliotheque[cle_code_bibliotheque] = code_
-        print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
+        #print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
 
         # clean code_bibliotheque
         code_bibliotheque_ = code_bibliotheque_.replace(code_, '')
-        print(f"code biblioheque {code_bibliotheque_}")
-        if inany(cle_code_bibliotheque, s_fin):
-            break
+        # print(f"code biblioheque {code_bibliotheque_}")
+
     return dict_code_bibliotheque
+
+
+def dictionnaire_bibliotheque_total(list_bibliotheque_):
+    dict_bibliotheque_ = {}
+    for ll in list_bibliotheque_:
+        code_bibliotheque__ = read_file(directoryBibliotheqque + ll)
+        dict_bibliotheque_.update(creation_dictionnaire(code_bibliotheque__, ll.replace('.ga', '')))
+        # print(f"code_bibliotheque {code_bibliotheque__}")
+    return dict_bibliotheque_
 
 
 # code source
@@ -62,52 +75,35 @@ print(f"list_bibliotheque {list_bibliotheque}")
 list_code_bibliotheque = []
 code_bibliotheque = ""
 
-dict_bibliotheque ={}
-
-for ll in list_bibliotheque:
-    code_bibliotheque = read_file(directoryBibliotheqque + ll)
-    dict_bibliotheque.update(creation_dictionnaire(code_bibliotheque, ll.replace('.ga','')))
-    print(f"code_bibliotheque {code_bibliotheque}")
+dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque)
+print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
 
-
-    # print(f"code_bibliotheque {ll}  {code_bibliotheque}")
-    #list_code_bibliotheque.append(re.split(r":", code_bibliotheque))
-#list_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
-
-
-
-#list_code_bibliotheque = sum(list_code_bibliotheque, [])  # remove list [[][]]
-# print(f"code_bibliotheque : {code_bibliotheque}")
-
-#dict_bibliotheque ={}
-#dict_bibliotheque = creation_dictionnaire(code_bibliotheque, list_bibliotheque[0])
-print(dict_bibliotheque)
-sys.exit()
+'''
 list_mot_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
 list_mot_code_bibliotheque = list(map(lambda each: each.strip(": "), list_mot_code_bibliotheque))
 list_mot_code_bibliotheque = list(map(lambda each: each.strip("( n )"), list_mot_code_bibliotheque))
 
 print(f"list_mot_code_bibliotheque : {list_mot_code_bibliotheque}")
-
+'''
 code_to_add = []
 code_to_replace = []
 for lc in list_code:
     print(lc)
-    for lcb in list_code_bibliotheque:
-        if inany(lcb, lc, True):
-            print(lc, lcb)
-            code_to_add.append(": " + lcb)
-            break
-    for lmcb in list_mot_code_bibliotheque:
-        if inany(lc, lmcb, True):
-            print(lmcb, lc)
-            code_to_replace.append(lmcb)
+    if lc in dict_bibliotheque:
+        code_to_add.append(dict_bibliotheque[lc])
+
+    for key in dict_bibliotheque:
+        if inany(lc, key, True):
+            print(key, lc)
+            code_to_replace.append(dict_bibliotheque[key])
+
+
 code_to_add = set(code_to_add)
 code_to_replace = set(code_to_replace)
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
-
+sys.exit()
 code_remplace = []
 
 
