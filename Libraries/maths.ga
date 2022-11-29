@@ -51,6 +51,8 @@
 : /mod
 	for begin over over . + -if drop 2* swap next ;then over or or - 2* - next ;
 
+: end maths
+;
 
 
 	

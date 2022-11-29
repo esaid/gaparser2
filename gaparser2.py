@@ -30,6 +30,24 @@ def find_between(s, start, end):
     return ': ' + (s.split(start))[1].split(end)[0] + " ;"
 
 
+def creation_dictionnaire(code_bibliotheque_, s_fin):
+    dict_code_bibliotheque = {}
+    while code_bibliotheque_:
+        cle_code_ = find_between(code_bibliotheque_, ': ', ' ;')
+
+        cle_code_bibliotheque , code_ = cle_code_.split("\n")[0].replace(': ',''), cle_code_
+        print(f" cle: {cle_code_bibliotheque} , code  {code_}")
+        dict_code_bibliotheque[cle_code_bibliotheque] = code_
+        print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
+
+        # clean code_bibliotheque
+        code_bibliotheque_ = code_bibliotheque_.replace(code_, '')
+        print(f"code biblioheque {code_bibliotheque_}")
+        if inany(cle_code_bibliotheque, s_fin):
+            break
+    return dict_code_bibliotheque
+
+
 # code source
 code = read_file(file_ga)
 print(f"code:  {code}")
@@ -43,30 +61,25 @@ print(f"list_bibliotheque {list_bibliotheque}")
 
 list_code_bibliotheque = []
 code_bibliotheque = ""
+
+dict_bibliotheque ={}
+
 for ll in list_bibliotheque:
     code_bibliotheque += read_file(directoryBibliotheqque + ll)
+    #dict_bibliotheque = creation_dictionnaire(code_bibliotheque, ll.replace('.ga',''))
+
     # print(f"code_bibliotheque {ll}  {code_bibliotheque}")
     #list_code_bibliotheque.append(re.split(r":", code_bibliotheque))
 #list_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
-
-
+print(f"code_bibliotheque {code_bibliotheque}")
+dict_bibliotheque = creation_dictionnaire(code_bibliotheque, list_bibliotheque[0].replace('.ga',''))
 
 #list_code_bibliotheque = sum(list_code_bibliotheque, [])  # remove list [[][]]
 # print(f"code_bibliotheque : {code_bibliotheque}")
-dict_code_bibliotheque = {}
-while not code_bibliotheque:
-    cle_code_ = find_between(code_bibliotheque, ': ', ' ;')
 
-    cle_code_bibliotheque , code_ = cle_code_.split("\n")[0].replace(': ',''), cle_code_
-    print(f" cle: {cle_code_bibliotheque} , code  {code_}")
-    dict_code_bibliotheque[cle_code_bibliotheque] = code_
-    print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
-
-    # clean code_bibliotheque
-    code_bibliotheque = code_bibliotheque.replace(code_, '')
-    print(f"code biblioheque {code_bibliotheque}")
-
-
+#dict_bibliotheque ={}
+#dict_bibliotheque = creation_dictionnaire(code_bibliotheque, list_bibliotheque[0])
+print(dict_bibliotheque)
 sys.exit()
 list_mot_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
 list_mot_code_bibliotheque = list(map(lambda each: each.strip(": "), list_mot_code_bibliotheque))
