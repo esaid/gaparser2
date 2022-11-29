@@ -92,9 +92,13 @@ for lc in list_code:
 
 code_to_add = code_to_add[1::2]  # odd element
 
+# clean code_to_replace
+
+
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
 
+# init code
 fileoverwrite(file_ga_, code)
 # clean require
 filereplace(file_ga_, 'require', '\ require')
