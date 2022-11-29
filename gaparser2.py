@@ -85,9 +85,8 @@ for lc in list_code:
     if lc in dict_bibliotheque:
         if lc not in code_to_add:
             code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
-
     for key, value in dict_bibliotheque.items():
-        if inany(lc, key + ' '):
+        if inany(lc, key):
             if (key not in code_to_replace) and (key not in code_to_add):
                 code_to_replace.extend([key, str(value.replace(key, '')).replace(';', '')])
 code_to_add = code_to_add[1::2]  # odd element
