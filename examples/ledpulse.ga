@@ -9,7 +9,7 @@ node 500
     pause
     0x20000 !b . . \ led off
     pause
-    5 ms
+    5ms
     ledpulse
 
     

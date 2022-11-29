@@ -9,11 +9,13 @@ node 500
     pause
     0x20000 !b . . \ led off
     pause
-    5 ms
+    5ms
     ledpulse
 
     
-:  pause
+: pause
 	5000 for 10000 
 	for next . . next ;
-
+: 5ms
+    5 for 999 ( n )
+	for 416 for unext next ; next ;

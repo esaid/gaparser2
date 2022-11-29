@@ -42,7 +42,7 @@ def creation_dictionnaire(code_bibliotheque_, s_fin):
         if inany(cle_code_bibliotheque, s_fin, True):
             break
         cle_code_bibliotheque = cle_code_bibliotheque.split(' ')[0]
-        dict_code_bibliotheque[cle_code_bibliotheque] = code_
+        dict_code_bibliotheque[cle_code_bibliotheque] = code_.replace(': ', '')
         # print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
 
         # clean code_bibliotheque
@@ -91,7 +91,7 @@ for lc in list_code:
     print(lc)
     if lc in dict_bibliotheque:
         if lc not in code_to_add:
-            code_to_add.extend([lc, dict_bibliotheque[lc]])
+            code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
 
     for key, value in dict_bibliotheque.items():
         if inany(lc, key, True):
@@ -102,15 +102,18 @@ code_to_add = code_to_add[1::2]  # odd element
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
 
-
-for s in code_to_replace:
-    print(s)
-
-
-sys.exit()
 fileoverwrite(file_ga_, code)
+# ajout code complet a la fin
 for s_code_to_add in code_to_add:
-    fileappend(file_ga_, s_code_to_add)
+    fileappend(file_ga_, s_code_to_add + '\n')
 
-for s_code_to_replace in code_to_replace:
-    filereplace(file_ga_ , s_code_to_add, s_code_to_replace )
+# remplace la definition du code par sa definition
+for i in range(len(code_to_replace) - 1, -1, -2):
+    s_code_to_found = code_to_replace[i - 1]
+    s_code_to_replace = code_to_replace[i]
+    filereplace(file_ga_, ' ' + s_code_to_found , s_code_to_replace)
+
+
+# code source
+code = read_file(file_ga_)
+print(code)
