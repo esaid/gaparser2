@@ -113,7 +113,6 @@ for i in range(len(code_to_replace) - 1, -1, -2):
     s_code_to_replace = code_to_replace[i]
     filereplace(file_ga_, ' ' + s_code_to_found , s_code_to_replace)
 
-
 # code source
 code = read_file(file_ga_)
 print(code)
