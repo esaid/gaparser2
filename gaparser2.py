@@ -89,6 +89,7 @@ for lc in list_code:
         if inany(lc, key):
             if (key not in code_to_replace) and (key not in code_to_add):
                 code_to_replace.extend([key, str(value.replace(key, '')).replace(';', '')])
+
 code_to_add = code_to_add[1::2]  # odd element
 
 print(f"code a ajouter : {code_to_add}")
