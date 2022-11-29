@@ -95,19 +95,22 @@ for lc in list_code:
 
     for key, value in dict_bibliotheque.items():
         if inany(lc, key, True):
-            if (key not in code_to_replace) and (key not in code_to_add) :
+            if (key not in code_to_replace) and (key not in code_to_add):
                 code_to_replace.extend([key, value.replace(key, '')])
-
-
+code_to_add = code_to_add[1::2]  # odd element
 
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
 
-sys.exit()
 
+for s in code_to_replace:
+    print(s)
+
+
+sys.exit()
 fileoverwrite(file_ga_, code)
 for s_code_to_add in code_to_add:
     fileappend(file_ga_, s_code_to_add)
 
-# for s_code_to_replace in code_remplace:
-# filereplace(file_ga_ , s_code_to_add, s_code_to_replace )
+for s_code_to_replace in code_to_replace:
+    filereplace(file_ga_ , s_code_to_add, s_code_to_replace )
