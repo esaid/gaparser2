@@ -96,6 +96,9 @@ print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
 
 fileoverwrite(file_ga_, code)
+# clean require
+filereplace(file_ga_, 'require', '\ require')
+
 # ajout code complet a la fin
 for s_code_to_add in code_to_add:
     fileappend(file_ga_, s_code_to_add + '\n')
