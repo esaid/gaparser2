@@ -43,7 +43,7 @@ def creation_dictionnaire(code_bibliotheque_, s_fin):
             break
         cle_code_bibliotheque = cle_code_bibliotheque.split(' ')[0]
         dict_code_bibliotheque[cle_code_bibliotheque] = code_
-        #print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
+        # print(f" dictionnaire code bibliotheque {dict_code_bibliotheque}")
 
         # clean code_bibliotheque
         code_bibliotheque_ = code_bibliotheque_.replace(code_, '')
@@ -78,7 +78,6 @@ code_bibliotheque = ""
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque)
 print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
-
 '''
 list_mot_code_bibliotheque = list(filter(lambda x: x != '', list(map(str.strip, code_bibliotheque.splitlines()))))
 list_mot_code_bibliotheque = list(map(lambda each: each.strip(": "), list_mot_code_bibliotheque))
@@ -91,20 +90,18 @@ code_to_replace = []
 for lc in list_code:
     print(lc)
     if lc in dict_bibliotheque:
-        code_to_add.append(dict_bibliotheque[lc])
+        if lc not in code_to_add:
+            code_to_add.extend([lc, dict_bibliotheque[lc]])
 
     for key, value in dict_bibliotheque.items():
         if inany(lc, key, True):
-            code_to_replace.append(key)
-            code_to_replace.append(value)
+            if (key not in code_to_replace) and (key not in code_to_add) :
+                code_to_replace.extend([key, value.replace(key, '')])
 
 
 
-code_to_add = set(code_to_add)
-code_to_replace = set(code_to_replace)
 print(f"code a ajouter : {code_to_add}")
 print(f"code a remplacer: {code_to_replace}")
-
 
 sys.exit()
 
