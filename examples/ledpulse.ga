@@ -10,7 +10,7 @@ node 500
     pause
     io.l \ led off
     pause
-    500 ms
+    5ms
     ledpulse
 
     
