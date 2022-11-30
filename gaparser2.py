@@ -3,6 +3,7 @@ import pyutil
 from pyutil import inany, do, fileappend, fileoverwrite, filereplace, toDict
 import re
 import sys
+import os
 
 directoryExamples = '/examples'
 directoryBibliotheqque = 'Libraries/'
@@ -116,3 +117,12 @@ for i in range(len(code_to_replace) - 1, -1, -2):
 # code source
 code = read_file(file_ga_)
 print(code)
+
+if compilega144:
+    # "python ga.py examples/boutoninput_.ga --json"
+
+    commandecompile = "python ga.py " + file_ga_
+    os.system(commandecompile)
+    if programga144:
+        commandprogram = "python ga.py " + file_ga_ + " --port " + comserial
+        os.system(commandprogram)

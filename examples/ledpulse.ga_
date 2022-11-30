@@ -12,13 +12,12 @@ node 500
    
     0x20000 !b . .   \ led off
     pause
-    5ms
+    500 ( n )
+	for 999 ( n )
+	for 416 for unext next  next 
     ledpulse
 
     
 : pause
 	5000 for 10000 
 	for next . . next ;
-: 5ms
-    5 for 999 ( n )
-	for 416 for unext next  next ;
