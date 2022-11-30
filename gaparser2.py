@@ -123,6 +123,6 @@ if compilega144:
 
     commandecompile = "python ga.py " + file_ga_
     os.system(commandecompile)
-    if programga144:
-        commandprogram = "python ga.py " + file_ga_ + " --port " + comserial
-        os.system(commandprogram)
+if programga144:
+    commandprogram = "python ga.py " + file_ga_ + " --port " + comserial
+    os.system(commandprogram)
