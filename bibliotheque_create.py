@@ -8,7 +8,7 @@ def read_file(File_input):
 
 
 # list bibliotheque
-def find_files_bibliotheque(list_, string_found, s_extension):
+def find_string_in_list(list_, string_found, s_extension):
     # cherche index de string_found dans list_, et retourne la liste des fichiers ( sans string_found )  + s_extension
     # exemple require delay ( index 0 ) require gpio ( index 1 ) , retourne [delay.ga, gpio.ga]
     return list(

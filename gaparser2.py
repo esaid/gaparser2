@@ -1,6 +1,6 @@
 import numpy as np
 import pyutil
-from  bibliotheque_create import read_file, find_files_bibliotheque,  dictionnaire_bibliotheque_total
+from  bibliotheque_create import read_file, find_string_in_list,  dictionnaire_bibliotheque_total
 from pyutil import inany, fileappend, fileoverwrite, filereplace
 import re
 import sys
@@ -26,7 +26,7 @@ list_code = list(filter(lambda x: x != '', list(map(str.strip, code.splitlines()
 
 # list_bibliotheque fichiers
 # list_bibliotheque = list_find_('require', '.ga')
-list_bibliotheque = find_files_bibliotheque(list_code, 'require', '.ga')
+list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
 print(f"list_bibliotheque : {list_bibliotheque}")
 
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
