@@ -22,12 +22,19 @@ def read_file(File_input):
 
 
 # list bibliotheque
+'''
 def list_find_(string_found, s_extension):
     list_require = []
     for i in list_code:
         if inany(i, string_found, True):
             list_require.append(re.sub(string_found, '', i).strip() + s_extension)
     return list_require
+'''
+
+
+def find_files_bibliotheque(list_, string_found, s_extension):
+    return list(
+        map(lambda s_: (list_[s_].replace(string_found,'').strip() + s_extension), [i for i, value in enumerate(list_) if inany(value,string_found, True)]))
 
 
 # decoupage definition et code
@@ -69,12 +76,13 @@ code = read_file(file_ga)
 print(f"code:  {code}")
 # liste_code , separation des lignes , suppression espaces
 list_code = list(filter(lambda x: x != '', list(map(str.strip, code.splitlines()))))
+#list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
 print(f"list_code:  {list_code}")
 
 # list_bibliotheque fichiers
-list_bibliotheque = list_find_('require', '.ga')
+# list_bibliotheque = list_find_('require', '.ga')
+list_bibliotheque = find_files_bibliotheque(list_code, 'require', '.ga')
 print(f"list_bibliotheque {list_bibliotheque}")
-
 
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque)
 print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
