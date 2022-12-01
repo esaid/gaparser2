@@ -7,7 +7,7 @@
 node 500
 : ledpulse
    
-    0x30000 !b . .   \
+    0x30000 !b . .   \ led on
     pause
    
     0x20000 !b . .   \ led off
