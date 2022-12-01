@@ -18,6 +18,19 @@ def find_string_in_list(list_, string_found, s_extension):
 
 # decoupage definition et code
 def find_between(s, start, end):
+    '''
+    y = s.split()
+    st = 0
+    for str , value in enumerate(y):
+        if value == ":" and st == 0:
+            st = str
+        if value == ";" :
+            ed = str
+            break
+    t = "".join(y[st:ed]) + ' ;'
+
+    return t
+    '''
     return ': ' + (s.split(start))[1].split(end)[0] + " ;"
 
 

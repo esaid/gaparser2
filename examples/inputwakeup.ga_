@@ -1,4 +1,4 @@
-require gpio
+\ require gpio
 
 
 \ ga inputwakeup.ga --port /dev/ttyUSB0
@@ -15,3 +15,5 @@ node 600
 : input ?pin input ; 
 
 \ link 600 708
+: ?pin
+    @b drop 1 ;

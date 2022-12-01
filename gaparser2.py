@@ -12,7 +12,8 @@ comserial = "com9"  # le port serie
 compilega144 = True  # permet de voir sous forme json le resultat de la compilation
 programga144 = False  # programmation du ga144
 
-file_ga = "examples/ledpulse.ga"
+#file_ga = "examples/ledpulse.ga"
+file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
 
@@ -23,7 +24,8 @@ print(f"code: \n{code}")
 list_code = list(filter(lambda x: x != '', list(map(str.strip, code.splitlines()))))  # separation lignes
 # list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
 #print(f"list_code:  {list_code}")
-
+list_node = find_string_in_list(list_code, 'node','')
+print(f"liste node :\n{list_node}")
 # list_bibliotheque fichiers
 # list_bibliotheque = list_find_('require', '.ga')
 list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
@@ -49,8 +51,8 @@ code_to_add = code_to_add[1::2]  # odd element
 # clean code_to_replace
 
 
-#print(f"code a ajouter : {code_to_add}")
-#print(f"code a remplacer: {code_to_replace}")
+print(f"code a ajouter : {code_to_add}")
+print(f"code a remplacer: {code_to_replace}")
 
 # init code
 fileoverwrite(file_ga_, code)
