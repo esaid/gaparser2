@@ -3,13 +3,13 @@
 	5000 for 10000 
 	for next . . next ;
 
-: 5ms
+: 5ms ( 5ms )
     5 for 999 us next ;
 
-: us ( n )
+: us ( us time )
 	for 416 for unext next ;
 
-: ms ( n )
+: ms ( n ms )
 	for 999 us next ;
 
 : 50ns

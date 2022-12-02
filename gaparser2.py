@@ -13,9 +13,8 @@ compilega144 = True  # permet de voir sous forme json le resultat de la compilat
 programga144 = False  # programmation du ga144
 
 file_ga = "examples/ledpulse.ga"
-#file_ga = "examples/inputwakeup.ga"
+# file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
-
 
 # code source
 code = read_file(file_ga)
@@ -23,25 +22,38 @@ print(f"code: \n{code}")
 # liste_code , separation des lignes , suppression espaces
 list_code = list(filter(lambda x: x != '', list(map(str.strip, code.splitlines()))))  # separation lignes
 # list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
-#print(f"list_code:  {list_code}")
-list_node = find_string_in_list(list_code, 'node','')
+# print(f"list_code:  {list_code}")
+list_node = find_string_in_list(list_code, 'node', '')
 print(f"liste node :\n{list_node}")
-# list_bibliotheque fichiers
-# list_bibliotheque = list_find_('require', '.ga')
 
+# liste fichier bibliotheque
 list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
 print(f"list_bibliotheque : {list_bibliotheque}")
-
+# dictionnaire
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
-#print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
+# print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
+
+
+def code_dico(code_, dico_, c):
+    for lc in code_.split():
+        c = c + ' ' + lc
+        if lc in dico_:
+            return code_dico(str(dico_[lc]).removeprefix(lc), dico_, c)
+
+    return c
+
 
 code_to_add = []
 code_to_replace = []
 for lc in list_code:
+    c = code_dico(lc, dict_bibliotheque, '')
     print(lc)
+
     if lc in dict_bibliotheque:
         if lc not in code_to_add:
             code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
+            print(lc)
+
     for key, value in dict_bibliotheque.items():
         if inany(lc, key):
             if (key not in code_to_replace) and (key not in code_to_add):

@@ -60,7 +60,7 @@ def creation_dictionnaire(code_bibliotheque_):
         print(f"l2 = {l2}")
     for i in range(len(l1) - 1):
         code_bibli = (code_bibliotheque_[l1[i]:l2[i] + 1])
-        cle_code_bibliotheque, code_ = code_bibli.split("\n")[0].replace(': ', ''), code_bibli
+        cle_code_bibliotheque, code_ = code_bibli.split()[1], code_bibli
         print(code_bibli)
         dict_code_bibliotheque[cle_code_bibliotheque] = code_bibli.replace(': ', '')
     return dict_code_bibliotheque

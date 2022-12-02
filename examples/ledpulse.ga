@@ -1,12 +1,9 @@
-require maths
 require delay
 require gpio
-
 \ demo Led Pulse
 
 node 500
 : ledpulse
-    5ms
     io.h \ led on
     pause
     io.l \ led off
