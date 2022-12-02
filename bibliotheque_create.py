@@ -1,5 +1,4 @@
 # lecture fichier
-import re
 
 from pyutil import inany
 
@@ -55,3 +54,22 @@ def dictionnaire_bibliotheque_total(list_bibliotheque_, directoryBibliotheque_):
         dict_bibliotheque_.update(creation_dictionnaire(code_bibliotheque__))
         # print(f"code_bibliotheque {code_bibliotheque__}")
     return dict_bibliotheque_
+
+
+def code_to_add_to_replace(list_code_, dict_bibliotheque_):
+    code_to_add_ = []
+    code_to_replace_ = []
+    for lc in list_code_:
+
+        if lc in dict_bibliotheque_:
+            if lc not in code_to_add_:
+                code_to_add_.extend([lc, ': ' + dict_bibliotheque_[lc]])
+                # print(lc)
+
+        for key, value in dict_bibliotheque_.items():
+            if inany(lc, key):
+                if (key not in code_to_replace_) and (key not in code_to_add_):
+                    code_to_replace_.extend([key, str(value.removeprefix(key)).replace(';', '')])
+    # clean code_to_replace
+    code_to_add_ = code_to_add_[1::2]  # odd element
+    return code_to_add_, code_to_replace_

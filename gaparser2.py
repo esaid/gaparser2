@@ -1,10 +1,9 @@
-import numpy as np
-import pyutil
-from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bibliotheque_total
-from pyutil import inany, fileappend, fileoverwrite, filereplace
-import re
-import sys
+from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bibliotheque_total, code_to_add_to_replace
 import os
+
+from pyutil import fileappend, fileoverwrite, filereplace
+
+from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bibliotheque_total, code_to_add_to_replace
 
 directoryExamples = '/examples'
 directoryBibliotheque = 'Libraries/'
@@ -28,33 +27,18 @@ print(f"liste node : {list_node}")
 
 # liste fichier bibliotheque
 list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
-#print(f"list_bibliotheque : {list_bibliotheque}")
+# print(f"list_bibliotheque : {list_bibliotheque}")
 # dictionnaire
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
+
+
 # print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
-def code_to_add_to_replace(list_code):
-    code_to_add = []
-    code_to_replace = []
-    for lc in list_code:
 
-        if lc in dict_bibliotheque:
-            if lc not in code_to_add:
-                code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
-                #print(lc)
+code_to_add, code_to_replace = code_to_add_to_replace(list_code, dict_bibliotheque)
 
-        for key, value in dict_bibliotheque.items():
-            if inany(lc, key):
-                if (key not in code_to_replace) and (key not in code_to_add):
-                    code_to_replace.extend([key, str(value.removeprefix(key)).replace(';', '')])
-    # clean code_to_replace
-    code_to_add = code_to_add[1::2]  # odd element
-    return code_to_add, code_to_replace
-
-code_to_add , code_to_replace = code_to_add_to_replace(list_code)
-
-#print(f"code a ajouter : {code_to_add}")
-#print(f"code a remplacer: {code_to_replace}")
+# print(f"code a ajouter : {code_to_add}")
+# print(f"code a remplacer: {code_to_replace}")
 
 # init code
 fileoverwrite(file_ga_, code)
