@@ -3,18 +3,19 @@ import os
 
 from pyutil import fileappend, fileoverwrite, filereplace
 from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bibliotheque_total, code_to_add_to_replace
-
+# repertoire / initialisation
 directoryExamples = '/examples'
 directoryBibliotheque = 'Libraries/'
 comserial = "com9"  # le port serie
 compilega144 = True  # permet de voir sous forme json le resultat de la compilation
 programga144 = False  # programmation du ga144
 
+# fichiers code source
 file_ga = "examples/ledpulse.ga"
-# file_ga = "examples/inputwakeup.ga"
+#file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
-# code source
+# read code source
 code = read_file(file_ga)
 print(f"code: \n{code}")
 # liste_code , separation des lignes , suppression espaces
