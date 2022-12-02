@@ -18,11 +18,10 @@ def find_string_in_list(list_, string_found, s_extension):
             [i_ for i_, value_ in enumerate(list_) if inany(value_, string_found, True)]))
 
 
-def find_index_in_list(s, string_found):
-    indices = [index for index in range(len(s)) if s.startswith(string_found, index)]
+def find_all_index_in_list(s, string_found):
+    return [index for index in range(len(s)) if s.startswith(string_found, index)]
 
-    return indices
-
+'''
 # decoupage definition et code
 def find_between(s, start, end):
     u = s.find(start)
@@ -32,31 +31,41 @@ def find_between(s, start, end):
     o = y == l
     return y
     # return ': ' + (s.split(start))[1].split(end)[0] + " ;"
-
+'''
 
 def creation_dictionnaire(code_bibliotheque_, s_fin):
     dict_code_bibliotheque = {}
-    while code_bibliotheque_:
-        l1 = find_index_in_list(code_bibliotheque_, ": ")
-        l2 = find_index_in_list(code_bibliotheque_, ";")
-        print(l1)
-        print(l2)
-        m =min(len(l1), len(l2))
-        print(m)
-        for i in range (m-1):
-            print(l1[i],l1[i+1])
-            print(l2[i], l2[i+1])
-            if l1[i+1] < l2[i]:
-                l1.pop(i+1)
-                print(l1)
-                if l2[i] < l1[i+1]:
-                    l2.pop(i)
-                    print(l2)
+    code_bibli =[]
+    l1 = find_all_index_in_list(code_bibliotheque_, ": ")
+    l2 = find_all_index_in_list(code_bibliotheque_, ";")
+    print(l1)
+    print(l2)
+    m = min(len(l1), len(l2))
+    print(m)
+    i = 0
+    while i < (min(len(l1), len(l2)) - 1):
+            # print(l1[i],l1[i+1])
+            # print(l2[i], l2[i+1])
+        while l1[i + 1] < l2[i]:
+            l1.pop(i + 1)
+            # print(l1)
+        while l2[i + 1] < l1[i + 1]:
+            l2.pop(i)
+            # print(l2)
+        i += 1
+        print(f"i = {i}")
+        print(f"l1 = {l1}")
+        print(f"l2 = {l2}")
+    for i in range (len(l1)-1):
+        code_bibli = (code_bibliotheque_[l1[i]:l2[i]+1])
+        cle_code_bibliotheque, code_ = code_bibli.split("\n")[0].replace(': ', ''), code_bibli
+        print(code_bibli)
+        dict_code_bibliotheque[cle_code_bibliotheque] = code_bibli.replace(': ', '')
+    return dict_code_bibliotheque
 
 
 
-
-
+'''
 
 
         cle_code_ = find_between(code_bibliotheque_, ': ', ' ;')
@@ -73,13 +82,13 @@ def creation_dictionnaire(code_bibliotheque_, s_fin):
         code_bibliotheque_ = code_bibliotheque_.replace(code_, '')
         # print(f"code biblioheque {code_bibliotheque_}")
 
-    return dict_code_bibliotheque
-
+        return dict_code_bibliotheque
+'''
 
 def dictionnaire_bibliotheque_total(list_bibliotheque_, directoryBibliotheque_):
     dict_bibliotheque_ = {}
     for ll in list_bibliotheque_:
         code_bibliotheque__ = read_file(directoryBibliotheque_ + ll)
         dict_bibliotheque_.update(creation_dictionnaire(code_bibliotheque__, ll.replace('.ga', '')))
-        # print(f"code_bibliotheque {code_bibliotheque__}")
+        print(f"code_bibliotheque {code_bibliotheque__}")
     return dict_bibliotheque_
