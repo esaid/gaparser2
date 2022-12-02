@@ -46,7 +46,7 @@ def code_dico(code_, dico_, c):
 code_to_add = []
 code_to_replace = []
 for lc in list_code:
-    c = code_dico(lc, dict_bibliotheque, '')
+    # c = code_dico(lc, dict_bibliotheque, '')
     print(lc)
 
     if lc in dict_bibliotheque:
@@ -57,7 +57,7 @@ for lc in list_code:
     for key, value in dict_bibliotheque.items():
         if inany(lc, key):
             if (key not in code_to_replace) and (key not in code_to_add):
-                code_to_replace.extend([key, str(value.replace(key, '')).replace(';', '')])
+                code_to_replace.extend([key, str(value.removeprefix(key)).replace(';', '')])
 
 code_to_add = code_to_add[1::2]  # odd element
 

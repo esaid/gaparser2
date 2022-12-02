@@ -18,5 +18,5 @@ node 500
 	5000 for 10000 
 	for next . . next ;
 : 5ms ( 5ms )
-    5 for 999 (  time )
+    5 for 999 ( us time )
 	for 416 for unext next  next ;
