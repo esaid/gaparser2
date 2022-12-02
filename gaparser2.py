@@ -24,35 +24,24 @@ list_code = list(filter(lambda x: x != '', list(map(str.strip, code.splitlines()
 # list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
 # print(f"list_code:  {list_code}")
 list_node = find_string_in_list(list_code, 'node', '')
-print(f"liste node :\n{list_node}")
+print(f"liste node : {list_node}")
 
 # liste fichier bibliotheque
 list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
-print(f"list_bibliotheque : {list_bibliotheque}")
+#print(f"list_bibliotheque : {list_bibliotheque}")
 # dictionnaire
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
 # print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
 
-def code_dico(code_, dico_, c):
-    for lc in code_.split():
-        c = c + ' ' + lc
-        if lc in dico_:
-            return code_dico(str(dico_[lc]).removeprefix(lc), dico_, c)
-
-    return c
-
-
 code_to_add = []
 code_to_replace = []
 for lc in list_code:
-    # c = code_dico(lc, dict_bibliotheque, '')
-    print(lc)
 
     if lc in dict_bibliotheque:
         if lc not in code_to_add:
             code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
-            print(lc)
+            #print(lc)
 
     for key, value in dict_bibliotheque.items():
         if inany(lc, key):
@@ -64,8 +53,8 @@ code_to_add = code_to_add[1::2]  # odd element
 # clean code_to_replace
 
 
-print(f"code a ajouter : {code_to_add}")
-print(f"code a remplacer: {code_to_replace}")
+#print(f"code a ajouter : {code_to_add}")
+#print(f"code a remplacer: {code_to_replace}")
 
 # init code
 fileoverwrite(file_ga_, code)
