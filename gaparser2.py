@@ -33,25 +33,25 @@ list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
 # print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
+def code_to_add_to_replace(list_code):
+    code_to_add = []
+    code_to_replace = []
+    for lc in list_code:
 
-code_to_add = []
-code_to_replace = []
-for lc in list_code:
+        if lc in dict_bibliotheque:
+            if lc not in code_to_add:
+                code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
+                #print(lc)
 
-    if lc in dict_bibliotheque:
-        if lc not in code_to_add:
-            code_to_add.extend([lc, ': ' + dict_bibliotheque[lc]])
-            #print(lc)
+        for key, value in dict_bibliotheque.items():
+            if inany(lc, key):
+                if (key not in code_to_replace) and (key not in code_to_add):
+                    code_to_replace.extend([key, str(value.removeprefix(key)).replace(';', '')])
+    # clean code_to_replace
+    code_to_add = code_to_add[1::2]  # odd element
+    return code_to_add, code_to_replace
 
-    for key, value in dict_bibliotheque.items():
-        if inany(lc, key):
-            if (key not in code_to_replace) and (key not in code_to_add):
-                code_to_replace.extend([key, str(value.removeprefix(key)).replace(';', '')])
-
-code_to_add = code_to_add[1::2]  # odd element
-
-# clean code_to_replace
-
+code_to_add , code_to_replace = code_to_add_to_replace(list_code)
 
 #print(f"code a ajouter : {code_to_add}")
 #print(f"code a remplacer: {code_to_replace}")
