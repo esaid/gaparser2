@@ -2,7 +2,6 @@ from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bib
 import os
 
 from pyutil import fileappend, fileoverwrite, filereplace
-
 from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bibliotheque_total, code_to_add_to_replace
 
 directoryExamples = '/examples'
@@ -30,11 +29,12 @@ list_bibliotheque = find_string_in_list(list_code, 'require', '.ga')
 # print(f"list_bibliotheque : {list_bibliotheque}")
 # dictionnaire
 dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque)
-
-
 # print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
 
-
+# code a ajouter a la fin ou a remplacer
+# la regle est la suivante
+# code a ajouter si le mot est seul dans le code exemple pause ( dans ledpulse.ga )
+# code a remplacer si le mot dans le code a un commentaire exemple io.h \ led on  ( dans ledpulse.ga )
 code_to_add, code_to_replace = code_to_add_to_replace(list_code, dict_bibliotheque)
 
 # print(f"code a ajouter : {code_to_add}")
@@ -59,6 +59,7 @@ for i in range(len(code_to_replace) - 1, -1, -2):
 newcode = read_file(file_ga_)
 print(f" nouveau code: \n{newcode}")
 
+# compilation / programmation
 if compilega144:
     # "python ga.py examples/boutoninput_.ga --json"
 
