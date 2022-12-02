@@ -1,4 +1,6 @@
 # lecture fichier
+import re
+
 from pyutil import inany
 
 
@@ -16,20 +18,26 @@ def find_string_in_list(list_, string_found, s_extension):
             [i_ for i_, value_ in enumerate(list_) if inany(value_, string_found, True)]))
 
 
+def find_index_in_list(s, string_found):
+    indices = [index for index in range(len(s)) if s.startswith(string_found, index)]
+
+    return indices
+
 # decoupage definition et code
 def find_between(s, start, end):
     u = s.find(start)
-    k = s.find(end) + 2
+    k = s.find(end.strip()) + 1
     y = f"{s[u:k]}"
     l = ': ' + (s.split(start))[1].split(end)[0] + " ;"
     o = y == l
     return y
-    #return ': ' + (s.split(start))[1].split(end)[0] + " ;"
+    # return ': ' + (s.split(start))[1].split(end)[0] + " ;"
 
 
 def creation_dictionnaire(code_bibliotheque_, s_fin):
     dict_code_bibliotheque = {}
     while code_bibliotheque_:
+        list_b = find_index_in_list(code_bibliotheque_, ": ")
         cle_code_ = find_between(code_bibliotheque_, ': ', ' ;')
 
         cle_code_bibliotheque, code_ = cle_code_.split("\n")[0].replace(': ', ''), cle_code_

@@ -1,5 +1,5 @@
-require delay
 require maths
+require delay
 require gpio
 
 \ demo Led Pulse
