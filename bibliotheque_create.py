@@ -37,7 +37,28 @@ def find_between(s, start, end):
 def creation_dictionnaire(code_bibliotheque_, s_fin):
     dict_code_bibliotheque = {}
     while code_bibliotheque_:
-        list_b = find_index_in_list(code_bibliotheque_, ": ")
+        l1 = find_index_in_list(code_bibliotheque_, ": ")
+        l2 = find_index_in_list(code_bibliotheque_, ";")
+        print(l1)
+        print(l2)
+        m =min(len(l1), len(l2))
+        print(m)
+        for i in range (m-1):
+            print(l1[i],l1[i+1])
+            print(l2[i], l2[i+1])
+            if l1[i+1] < l2[i]:
+                l1.pop(i+1)
+                print(l1)
+                if l2[i] < l1[i+1]:
+                    l2.pop(i)
+                    print(l2)
+
+
+
+
+
+
+
         cle_code_ = find_between(code_bibliotheque_, ': ', ' ;')
 
         cle_code_bibliotheque, code_ = cle_code_.split("\n")[0].replace(': ', ''), cle_code_

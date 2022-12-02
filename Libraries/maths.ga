@@ -1,4 +1,8 @@
 \ maths
+
+: max
+   - over . + - -if : main drop ; then + ;
+
 : negate
     - 1 . + ;
 
