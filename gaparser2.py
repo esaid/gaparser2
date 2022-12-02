@@ -12,8 +12,8 @@ comserial = "com9"  # le port serie
 compilega144 = True  # permet de voir sous forme json le resultat de la compilation
 programga144 = False  # programmation du ga144
 
-#file_ga = "examples/ledpulse.ga"
-file_ga = "examples/inputwakeup.ga"
+file_ga = "examples/ledpulse.ga"
+#file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
 
