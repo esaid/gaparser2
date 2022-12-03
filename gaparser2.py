@@ -6,12 +6,13 @@ from bibliotheque_create import read_file, find_string_in_list, dictionnaire_bib
 # repertoire / initialisation
 directoryExamples = '/examples'
 directoryBibliotheque = 'Libraries/'
-comserial = "com9"  # le port serie
+comserial = "/dev/ttyUSB0"  # le port serie
 compilega144 = True  # permet de voir sous forme json le resultat de la compilation
-programga144 = False  # programmation du ga144
+programga144 = True  # programmation du ga144
 
 # fichiers code source
-file_ga = "examples/ledpulse.ga"
+#file_ga = "examples/ledpulse.ga"
+file_ga = "examples/fibonacci.ga"
 #file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
