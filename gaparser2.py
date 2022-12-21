@@ -13,19 +13,20 @@ programga144 = False  # programmation du ga144
 
 # fichiers code source
 #file_ga = "examples/ledpulse.ga"
-file_ga = "examples/fibonacci.ga"
-# file_ga = "examples/inputwakeup.ga"
+#file_ga = "examples/fibonacci.ga"
+file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
 # read code source
 code = read_file(file_ga)
 print(f"code: \n{code}")
 
-generation_code(code, directoryBibliotheque, file_ga_)
 
 # new code
+generation_code(code, directoryBibliotheque, file_ga_)
 newcode = read_file(file_ga_)
 print(f" nouveau code: \n{newcode}")
+
 # -------------------------------------------------------------------
 
 # compilation / programmation
