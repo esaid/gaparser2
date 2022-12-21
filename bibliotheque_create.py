@@ -80,7 +80,7 @@ def extraction_code(code_):
     # list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
     # print(f"list_code:  {list_code}")
     list_node = find_string_in_list(list_code, 'node', '')
-    print(f"liste node : {list_node}")
+    # print(f"liste node : {list_node}")
     return list_code
 
 

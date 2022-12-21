@@ -12,8 +12,8 @@ programga144 = False  # programmation du ga144
 # -------------------------------------------------------------------
 
 # fichiers code source
-file_ga = "examples/ledpulse.ga"
-#file_ga = "examples/fibonacci.ga"
+#file_ga = "examples/ledpulse.ga"
+file_ga = "examples/fibonacci.ga"
 # file_ga = "examples/inputwakeup.ga"
 file_ga_ = file_ga + '_'
 
