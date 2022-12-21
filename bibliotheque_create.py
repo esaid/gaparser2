@@ -1,6 +1,4 @@
-# lecture fichier
-
-from pyutil import inany
+from pyutil import inany , fileappend, fileoverwrite, filereplace
 
 
 def read_file(File_input):
@@ -73,3 +71,53 @@ def code_to_add_to_replace(list_code_, dict_bibliotheque_):
     # clean code_to_replace
     code_to_add_ = code_to_add_[1::2]  # odd element
     return code_to_add_, code_to_replace_
+
+
+
+def extraction_code(code_):
+    # liste_code , separation des lignes , suppression espaces
+    list_code = list(filter(lambda x: x != '', list(map(str.strip, code_.splitlines()))))  # separation lignes
+    # list_code = list(filter(lambda x: x != '', list(map(str.strip, code.split()))))
+    # print(f"list_code:  {list_code}")
+    list_node = find_string_in_list(list_code, 'node', '')
+    print(f"liste node : {list_node}")
+    return list_code
+
+
+def creation_bibliotheque(list_code_, directoryBibliotheque_):
+    # liste fichier bibliotheque
+    list_bibliotheque = find_string_in_list(list_code_, 'require', '.ga')
+    # print(f"list_bibliotheque : {list_bibliotheque}")
+    # dictionnaire
+    dict_bibliotheque = dictionnaire_bibliotheque_total(list_bibliotheque, directoryBibliotheque_)
+    # print(f"dictionnaire_bibliotheque {dict_bibliotheque}")
+    return dict_bibliotheque
+
+
+def code_manipulation(list_code_, dict_bibliotheque_, code, file_ga_):
+    # code a ajouter a la fin ou a remplacer
+    # la regle est la suivante
+    # code a ajouter si le mot est seul dans le code exemple pause ( dans ledpulse.ga )
+    # code a remplacer si le mot dans le code a un commentaire exemple io.h \ led on  ( dans ledpulse.ga )
+    code_to_add, code_to_replace = code_to_add_to_replace(list_code_, dict_bibliotheque_)
+    # init code
+    fileoverwrite(file_ga_, code)
+    # clean require
+    filereplace(file_ga_, 'require', '\ require')
+
+    # ajout code complet a la fin
+    for s_code_to_add in code_to_add:
+        fileappend(file_ga_, s_code_to_add + '\n')
+
+    # remplace la definition du code par sa definition
+    for i in range(len(code_to_replace) - 1, -1, -2):
+        s_code_to_found = code_to_replace[i - 1]
+        s_code_to_replace = code_to_replace[i]
+        filereplace(file_ga_, ' ' + s_code_to_found, s_code_to_replace)
+
+    # print(f"code a ajouter : {code_to_add}")
+    # print(f"code a remplacer: {code_to_replace}")
+
+def generation_code(code, directoryBibliotheque, file_ga_):
+    code_manipulation(extraction_code(code), creation_bibliotheque(extraction_code(code), directoryBibliotheque) , code, file_ga_)
+
