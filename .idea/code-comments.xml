@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodeComments" version="1">
+    <comments>
+      <comment>
+        <place from="418" to="430">
+          <path mode="project">gaparser2.py</path>
+        </place>
+        <text>programga144</text>
+        <data>programmation du GA144</data>
+      </comment>
+      <comment>
+        <place from="290" to="299">
+          <path mode="project">gaparser2.py</path>
+        </place>
+        <text>comserial</text>
+        <data>port serie  /dev/ttyUSB0 pour linux,  sinon   COMxx sur windows</data>
+      </comment>
+    </comments>
+  </component>
+</project>
