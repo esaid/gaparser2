@@ -1,3 +1,4 @@
+# pip install python-util
 from pyutil import inany , fileappend, fileoverwrite, filereplace
 
 
@@ -8,8 +9,8 @@ def read_file(File_input):
 
 # list bibliotheque
 def find_string_in_list(list_, string_found, s_extension):
-    # cherche index de string_found dans list_, et retourne la liste des fichiers ( sans string_found )  + s_extension
-    # exemple require delay ( index 0 ) require gpio ( index 1 ) , retourne [delay.ga, gpio.ga]
+    # cherche index de string_found dans list_, et retourne la liste des fichiers (sans string_found) + s_extension
+    # exemple require delay (index 0) require gpio (index 1), retourne [delay.ga, gpio.ga]
     return list(
         map(lambda s_: (list_[s_].replace(string_found, '').strip() + s_extension),
             [i_ for i_, value_ in enumerate(list_) if inany(value_, string_found, True)]))
@@ -95,10 +96,10 @@ def creation_bibliotheque(list_code_, directoryBibliotheque_):
 
 
 def code_manipulation(list_code_, dict_bibliotheque_, code, file_ga_):
-    # code a ajouter a la fin ou a remplacer
+    # code à ajouter a la fin ou à remplacer
     # la regle est la suivante
-    # code a ajouter si le mot est seul dans le code exemple pause ( dans ledpulse.ga )
-    # code a remplacer si le mot dans le code a un commentaire exemple io.h \ led on  ( dans ledpulse.ga )
+    # code à ajouter si le mot est seul dans le code exemple pause ( dans ledpulse.ga )
+    # code à remplacer si le mot dans le code a un commentaire exemple io.h \ led on  ( dans ledpulse.ga )
     code_to_add, code_to_replace = code_to_add_to_replace(list_code_, dict_bibliotheque_)
     # init code
     fileoverwrite(file_ga_, code)
