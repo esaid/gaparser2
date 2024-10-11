@@ -1,4 +1,5 @@
 import os
+import subprocess
 from bibliotheque_create import read_file, generation_code
 
 # -------------------------------------------------------------------
@@ -12,9 +13,14 @@ programga144 = False  # programmation du ga144
 # -------------------------------------------------------------------
 
 # fichiers code source
-file_ga = "examples/ledpulse.ga"
-#file_ga = "examples/fibonacci.ga"
-# file_ga = "examples/inputwakeup.ga"
+dir_source = "examples/"
+file_source = "ledpulse.ga"
+# file_source = "inputwakeup.ga"
+# file_source = "fibonacci.ga"
+file_ga = dir_source + file_source
+
+
+
 file_ga_ = file_ga.replace('.ga', '_.ga')
 
 # read code source
@@ -30,14 +36,30 @@ print(f"file modifiee : {file_ga_}\n")
 print(f"nouveau code: \n{newcode}")
 
 # -------------------------------------------------------------------
+def ecrire_fichier(result_ , file_):
+    # Vérifier si la commande s'est exécutée avec succès
+    if result_.returncode == 0:
+        # Ouvrir le fichier en mode écriture
+        with open(dir_source + file_ , "w") as file:
+            file.write(result_.stdout)  # Écrire la sortie standard dans le fichier
+    else:
+        print("La commande a échoué avec le code de retour:", result_.returncode)
+        print("Erreur:", result_.stderr)
 
 # compilation / programmation
 if compilega144:
     # "python ga.py examples/boutoninput_.ga --json"
 
     commandecompile = "python ga.py " + file_ga_
-    os.system(commandecompile)
+
+    # Exécuter la commande et capturer la sortie
+    result = subprocess.run(commandecompile, shell=True, capture_output=True, text=True)
+    ecrire_fichier(result, "assembleur_" + file_source  )
+    # os.system(commandecompile)
 if programga144:
     commandprogram = "python ga.py " + file_ga_ + " --port " + comserial
-    os.system(commandprogram)
+    result = subprocess.run(commandprogram, shell=True, capture_output=True, text=True)
+    ecrire_fichier(result, "prg_" + file_source)
+
+    # os.system(commandprogram)
 # -------------------------------------------------------------------
