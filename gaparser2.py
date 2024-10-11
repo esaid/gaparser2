@@ -1,4 +1,5 @@
 import os
+import argparse
 import subprocess
 from bibliotheque_create import read_file, generation_code
 
@@ -11,12 +12,19 @@ compilega144 = True  # permet de voir sous forme json le resultat de la compilat
 programga144 = False  # programmation du ga144
 
 # -------------------------------------------------------------------
+file_source = "ledpulse.ga"
+file_source = "inputwakeup.ga"
+file_source = "fibonacci.ga"
 
 # fichiers code source
 dir_source = "examples/"
-file_source = "ledpulse.ga"
-# file_source = "inputwakeup.ga"
-# file_source = "fibonacci.ga"
+parser = argparse.ArgumentParser(description="fichier source")
+parser.add_argument('file', nargs='?', help='fichier source')
+args = parser.parse_args()
+if args.file:
+    file_source = args.file
+
+
 file_ga = dir_source + file_source
 
 
