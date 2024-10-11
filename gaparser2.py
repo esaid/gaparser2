@@ -15,7 +15,7 @@ programga144 = False  # programmation du ga144
 file_ga = "examples/ledpulse.ga"
 #file_ga = "examples/fibonacci.ga"
 # file_ga = "examples/inputwakeup.ga"
-file_ga_ = file_ga + '_'
+file_ga_ = file_ga.replace('.ga', '_.ga')
 
 # read code source
 code = read_file(file_ga)
