@@ -35,6 +35,7 @@ newcode = read_file(file_ga_)
 print(f"file modifiee : {file_ga_}\n")
 print(f"nouveau code: \n{newcode}")
 
+
 # -------------------------------------------------------------------
 def ecrire_fichier(result_ , file_):
     # Vérifier si la commande s'est exécutée avec succès
